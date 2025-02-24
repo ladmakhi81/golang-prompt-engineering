@@ -1,6 +1,7 @@
 package promptservice
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	promptdto "interview-generator/src/prompt/dto"
@@ -8,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/sashabaranov/go-openai"
 	"github.com/spf13/viper"
 )
 
@@ -32,14 +34,16 @@ func (PromptService) GetPrompt(promptName string, promptToken map[string]any) (s
 func (PromptService) SendPromptToChatgpt(prompt string) (*promptdto.GetPromptMessageResponse, error) {
 	apiUrl := viper.GetString("CHAT_API_URL")
 	apiKey := viper.GetString("CHAT_API_KEY")
-	body := promptdto.NewSendPromptPayloadDTO("gpt-4o-mini", promptdto.NewMessage(prompt))
-	client := resty.New()
+	body := promptdto.NewSendPromptPayloadDTO("gpt-4o-mini",
+		promptdto.NewMessage("system", "You are an expert in interview preparation across all industries. return questions in JSON array format."),
+		promptdto.NewMessage("user", prompt),
+	)
+	client := resty.New().SetProxy("http://127.0.0.1:12334/")
 	resp, respErr := client.R().
 		SetHeader("content-type", "application/json").
 		SetHeader("Authorization", fmt.Sprintf("Bearer %s", apiKey)).
 		SetBody(body).
 		Post(apiUrl)
-
 	if respErr != nil {
 		return nil, fmt.Errorf("error in response : %v", respErr)
 	}
@@ -47,5 +51,19 @@ func (PromptService) SendPromptToChatgpt(prompt string) (*promptdto.GetPromptMes
 	if err := json.Unmarshal(resp.Body(), result); err != nil {
 		return nil, fmt.Errorf("error in convert data : %v", err)
 	}
+
 	return result, nil
+}
+
+func x() {
+	apiKey := "aa-SCmxsmr0nsR91N5mpWMfDGiBPN7ihlUbHqkMIZYhHD67KK8v"
+	baseUrl := "https://api.avalai.ir/v1"
+
+	config := openai.DefaultConfig(apiKey)
+	config.BaseURL = baseUrl
+	client := openai.NewClientWithConfig(config)
+	client.CreateChatCompletion(context.Background(), openai.ChatCompletionRequest{
+		Model:    openai.GPT4Turbo,
+		Messages: []openai.ChatCompletionMessage{},
+	})
 }

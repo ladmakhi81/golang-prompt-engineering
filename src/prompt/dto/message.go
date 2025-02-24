@@ -5,9 +5,9 @@ type Message struct {
 	Content string `json:"content"`
 }
 
-func NewMessage(content string) Message {
+func NewMessage(role, content string) Message {
 	return Message{
-		Role:    "user",
+		Role:    role,
 		Content: content,
 	}
 }
@@ -26,9 +26,9 @@ type SendPromptPayloadDTO struct {
 	Messages []Message `json:"messages"`
 }
 
-func NewSendPromptPayloadDTO(model string, message Message) SendPromptPayloadDTO {
+func NewSendPromptPayloadDTO(model string, messages ...Message) SendPromptPayloadDTO {
 	return SendPromptPayloadDTO{
 		Model:    model,
-		Messages: []Message{message},
+		Messages: messages,
 	}
 }

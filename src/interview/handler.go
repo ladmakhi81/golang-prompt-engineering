@@ -69,13 +69,11 @@ func (svc InterviewHandler) GenerateInterviewQuestion(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"message": "something went wrong"})
 		return
 	}
+	// if promptRes.Choices == nil {
+	// 	ctx.JSON(http.StatusOK, gin.H{"message": "can't generate interview question based on provided information"})
+	// 	return
+	// }
 
-	if promptRes.Choices == nil {
-		ctx.JSON(http.StatusOK, gin.H{"message": "can't generate interview question based on provided information"})
-		return
-	}
-
-	choice := promptRes.Choices[0]
-	questions := strings.Split(choice.Message.Content, "\n\n")
-	ctx.JSON(http.StatusOK, gin.H{"questions": questions})
+	// choice := promptRes.Choices[0]
+	ctx.JSON(http.StatusOK, gin.H{"questions": promptRes})
 }
