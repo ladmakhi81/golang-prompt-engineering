@@ -29,7 +29,9 @@ func (PromptService) GetPrompt(promptName string, promptToken map[string]any) (s
 }
 
 func (PromptService) SendPromptToChatgpt(prompt string) (*promptdto.GetPromptMessageResponse, error) {
-	apiKey := "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"
+	// TODO: update api key from env
+	apiKey := ""
+	// apiKey := "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"
 	apiUrl := "https://api.openai.com/v1/chat/completions"
 	body := promptdto.NewSendPromptPayloadDTO("gpt-4o-mini", promptdto.NewMessage(prompt))
 	client := resty.New()
