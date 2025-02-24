@@ -8,11 +8,7 @@ import (
 	"strings"
 
 	"github.com/go-resty/resty/v2"
-)
-
-const (
-	API_KEY = "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"
-	API_URL = "https://api.openai.com/v1/chat/completions"
+	"github.com/spf13/viper"
 )
 
 type PromptService struct{}
@@ -34,13 +30,15 @@ func (PromptService) GetPrompt(promptName string, promptToken map[string]any) (s
 }
 
 func (PromptService) SendPromptToChatgpt(prompt string) (*promptdto.GetPromptMessageResponse, error) {
+	apiUrl := viper.GetString("CHAT_API_URL")
+	apiKey := viper.GetString("CHAT_API_KEY")
 	body := promptdto.NewSendPromptPayloadDTO("gpt-4o-mini", promptdto.NewMessage(prompt))
 	client := resty.New()
 	resp, respErr := client.R().
 		SetHeader("content-type", "application/json").
-		SetHeader("Authorization", fmt.Sprintf("Bearer %s", API_KEY)).
+		SetHeader("Authorization", fmt.Sprintf("Bearer %s", apiKey)).
 		SetBody(body).
-		Post(API_URL)
+		Post(apiUrl)
 
 	if respErr != nil {
 		return nil, fmt.Errorf("error in response : %v", respErr)

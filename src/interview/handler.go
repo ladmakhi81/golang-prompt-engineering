@@ -2,7 +2,6 @@ package interview
 
 import (
 	"fmt"
-	interviewdto "interview-generator/src/interview/dto"
 	newsservice "interview-generator/src/news/service"
 	promptservice "interview-generator/src/prompt/service"
 	"net/http"
@@ -27,14 +26,12 @@ func NewInterview(
 }
 
 func (svc InterviewHandler) GenerateInterviewQuestion(ctx *gin.Context) {
-	dto := interviewdto.NewGetInterviewMetadataDTO()
+	questionTopic := ctx.Query("topic")
+	questionIndustry := ctx.Query("industry")
+	questionPlatform := ctx.Query("platform")
+	questionJobDesc := ctx.Query("jobDesc")
 
-	if err := ctx.Bind(dto); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"message": "You must provide topic - industry - platform - job description as important parameter"})
-		return
-	}
-
-	isProvideParameter := dto.Topic != "" && dto.Industry != "" && dto.Platform != "" && dto.JobDescription != ""
+	isProvideParameter := questionTopic != "" && questionIndustry != "" && questionPlatform != "" && questionJobDesc != ""
 
 	if !isProvideParameter {
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "You must provide topic - industry - platform as important parameter"})
@@ -42,7 +39,7 @@ func (svc InterviewHandler) GenerateInterviewQuestion(ctx *gin.Context) {
 		return
 	}
 
-	news, newsErr := svc.newsSvc.FetchLatestNews(dto.Topic)
+	news, newsErr := svc.newsSvc.FetchLatestNews(questionTopic)
 	if newsErr != nil {
 		fmt.Println(newsErr)
 		ctx.JSON(http.StatusInternalServerError, gin.H{"message": "something went wrong"})
@@ -52,10 +49,11 @@ func (svc InterviewHandler) GenerateInterviewQuestion(ctx *gin.Context) {
 
 	newsTopics := svc.newsSvc.GetTitlesOfArticles(news.Articles)
 	promptToken := map[string]any{
-		"{topic}":    dto.Topic,
-		"{industry}": dto.Industry,
-		"{platform}": dto.Platform,
-		"{articles}": strings.Join(newsTopics, "\n"),
+		"{topic}":           questionTopic,
+		"{industry}":        questionIndustry,
+		"{platform}":        questionPlatform,
+		"{articles}":        strings.Join(newsTopics, "\n"),
+		"{job_description}": questionJobDesc,
 	}
 
 	prompt, promptErr := svc.promptSvc.GetPrompt("prompt-with-industry-platform", promptToken)

@@ -6,11 +6,7 @@ import (
 	newstype "interview-generator/src/news/type"
 
 	"github.com/go-resty/resty/v2"
-)
-
-const (
-	API_KEY = "b4433c3f2c9d4d9badb8db417268b91c"
-	API_URL = "https://newsapi.org/v2/everything"
+	"github.com/spf13/viper"
 )
 
 type NewsService struct{}
@@ -21,7 +17,9 @@ func NewNews() NewsService {
 
 func (NewsService) FetchLatestNews(topic string) (*newstype.NewsResponse, error) {
 	client := resty.New()
-	requestURL := fmt.Sprintf("%s?q=%s&apiKey=%s&language=en&pageSize=100&sortBy=publishedAt", API_URL, topic, API_KEY)
+	apiURL := viper.GetString("NEWS_API_URL")
+	apiKey := viper.GetString("NEWS_API_KEY")
+	requestURL := fmt.Sprintf("%s?q=%s&apiKey=%s&language=en&pageSize=100&sortBy=publishedAt", apiURL, topic, apiKey)
 	resp, respErr := client.R().
 		Get(requestURL)
 	if respErr != nil {
