@@ -37,6 +37,6 @@ Your task:
 
 ### Expected Output:
 
-Generate a total of **100 deep, thought-provoking interview questions**, ensuring a mix of questions inspired by the articles and web search (if any) and additional original ones. The questions should prioritize the first focus area, followed by the second. Do not separate or label them.
+Generate a total of **10 deep, thought-provoking interview questions**, ensuring a mix of questions inspired by the articles and web search (if any) and additional original ones. The questions should prioritize the first focus area, followed by the second. Do not separate or label them.
 
 Make sure the questions are returned as plain strings without any numbering or additional characters at the start. Ensure the questions are insightful, expert-level, and suitable for in-depth discussions.

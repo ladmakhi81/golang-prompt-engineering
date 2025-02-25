@@ -22,11 +22,18 @@ func ReplacePlaceholders(template string, values map[string]string) string {
 	return template
 }
 
-func ParsePromptTemplate(templateName string, values map[string]any) (string, error) {
-	tmplContent, tmplContentErr := ReadFile(templateName)
-	if tmplContentErr != nil {
-		return "", tmplContentErr
+func ParsePromptTemplate(templateName string, values map[string]any, externalPrompt string) (string, error) {
+	var tmplContent string
+	if externalPrompt == "" {
+		tmplContentVar, tmplContentErr := ReadFile(templateName)
+		if tmplContentErr != nil {
+			return "", tmplContentErr
+		}
+		tmplContent = tmplContentVar
+	} else {
+		tmplContent = externalPrompt
 	}
+
 	templ, templErr := template.New("interviewPrompt").Parse(tmplContent)
 	if templErr != nil {
 		return "", templErr

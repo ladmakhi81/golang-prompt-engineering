@@ -19,7 +19,7 @@ func NewQuestionService() *QuestionService {
 // 	return questions
 // }
 
-func (q *QuestionService) GetQuestions(jobTitle, industry, company, jobDescription, aiModel, cv string, features []string) []string {
+func (q *QuestionService) GetQuestions(jobTitle, industry, company, jobDescription, aiModel, cv string, features []string, prompt string) []string {
 	var news string
 	var trends string
 
@@ -47,6 +47,7 @@ func (q *QuestionService) GetQuestions(jobTitle, industry, company, jobDescripti
 		includeCV,
 		includeWebSearch,
 		includeNews,
+		prompt,
 	)
 	return questions
 }
