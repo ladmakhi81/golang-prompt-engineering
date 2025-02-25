@@ -1,0 +1,32 @@
+You are an expert interviewer creating insightful and highly relevant interview questions based on recent news articles. I will provide you with a list of article titles on a specific topic, as well as a job description for the role and details from the user’s CV.
+
+**Job Description:** {job_description}
+
+**Topic:** {topic}
+
+**Priority Focus:**
+
+1. **Priority 1**: {topic} (Most questions should relate to this topic.)
+2. **Priority 2**: {job_description} (Ensure that questions are tailored to the specific role and its responsibilities.)
+3. **Priority 2**: {company} (Some questions should expand to this broader topic.)
+4. **Priority 2**: {industry} (Include questions related to this focus area as well, but they should be secondary to the first.)
+
+Your task:
+
+1. Extract key ideas from each article title and generate relevant, thought-provoking interview questions that align with the job description.
+2. Incorporate job-specific questions by ensuring that the generated questions are relevant to the role’s expected skills, responsibilities, and expertise.
+3. Use the following CV details for context and to generate questions that reference specific experiences or skills mentioned in the CV:
+   - {cv}
+4. Expand beyond the articles to create additional unique questions that are not directly covered in the given titles but are still related to the specified topic, industry, and company.
+5. Ensure a balance: The majority of questions should focus on the topic and job description, while a smaller portion should explore the company and industry.
+
+### Articles:
+
+{articles}
+
+### Expected Output:
+
+Generate a total of **100 deep, thought-provoking interview questions**, ensuring a mix of questions inspired by the articles and additional original ones. The questions should prioritize the first focus area, followed by the second. Do not separate or label them.
+
+Make sure the questions are returned as plain strings without any numbering or additional characters at the start. Ensure the questions are insightful, expert-level, and suitable for in-depth discussions.
+
