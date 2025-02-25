@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"questions-generators/internal/config"
 	"questions-generators/internal/utils"
+	"strings"
 	"time"
 
 	"github.com/sashabaranov/go-openai"
@@ -22,6 +23,7 @@ func GenerateInterviewQuestions(
 	includeCV,
 	includeWebSearch,
 	includeNews bool,
+	externalPrompt string,
 
 ) []string {
 	config.LoadEnv()
@@ -39,7 +41,7 @@ func GenerateInterviewQuestions(
 		"IncludeNews":      includeNews,
 		"Year":             time.Now().Year(),
 	}
-	prompt, promptErr := utils.ParsePromptTemplate("prompts/avalai_prompt_template.txt", token)
+	prompt, promptErr := utils.ParsePromptTemplate("prompts/avalai_prompt_template.txt", token, externalPrompt)
 	if promptErr != nil {
 		return []string{"Error: Unable to parse prompt"}
 	}
@@ -51,7 +53,7 @@ func GenerateInterviewQuestions(
 		Messages: []openai.ChatCompletionMessage{
 			{
 				Role:    "system",
-				Content: "You are an expert in interview preparation across all industries. return questions in JSON array format.",
+				Content: "You are an expert in interview preparation across all industries. return questions in JSON array format without any extra words and sentences.",
 			},
 			{
 				Role:    "user",
@@ -59,11 +61,17 @@ func GenerateInterviewQuestions(
 			},
 		},
 	})
+
 	if respErr != nil || len(resp.Choices) == 0 {
 		return []string{"Error: No response from AI."}
 	}
+
+	messageContent := resp.Choices[0].Message.Content
+	messageContent = strings.Replace(messageContent, "json", "", -1)
+	messageContent = strings.Replace(messageContent, "`", "", -1)
+
 	var questions []string
-	parseErr := json.Unmarshal([]byte(resp.Choices[0].Message.Content), &questions)
+	parseErr := json.Unmarshal([]byte(messageContent), &questions)
 	if parseErr != nil {
 		return []string{"Error: AI response is not in JSON array format."}
 	}

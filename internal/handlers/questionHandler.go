@@ -9,6 +9,7 @@ import (
 
 func QuestionHandler(w http.ResponseWriter, r *http.Request) {
 	var body struct {
+		Prompt         string         `json:"prompt"`
 		JobTitle       string         `json:"jobTitle"`
 		Industry       string         `json:"industry"`
 		Company        string         `json:"company"`
@@ -37,7 +38,7 @@ func QuestionHandler(w http.ResponseWriter, r *http.Request) {
 	featuresSegments := strings.Split(body.Features, ",")
 
 	service := v1.NewQuestionService()
-	questions := service.GetQuestions(body.JobTitle, body.Industry, body.Company, body.JobDescription, body.AiModel, string(transformedCV), featuresSegments)
+	questions := service.GetQuestions(body.JobTitle, body.Industry, body.Company, body.JobDescription, body.AiModel, string(transformedCV), featuresSegments, body.Prompt)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(questions)
