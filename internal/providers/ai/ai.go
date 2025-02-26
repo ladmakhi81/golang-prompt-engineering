@@ -1,6 +1,7 @@
 package ai
 
 import (
+	"fmt"
 	aidto "questions-generators/internal/providers/ai/dto"
 	aiservice "questions-generators/internal/providers/ai/service"
 	"questions-generators/internal/utils"
@@ -35,6 +36,7 @@ func (svc AiService) GenerateInterviewQuestions(
 		"Year":             time.Now().Year(),
 	}
 	prompt, promptErr := utils.ParsePromptTemplate(promptName, promptToken, dto.CustomPrompt)
+	fmt.Println(prompt)
 	if promptErr != nil {
 		return []string{"Error: Unable to parse prompt"}
 	}
