@@ -1,0 +1,12 @@
+[
+    "Describe your approach to optimizing model training times when leveraging large-scale datasets on Google Cloud AI. Include specific tools or features you would use and explain why.",
+    "Given the shift towards GenAI, how would you handle the integration of multimodal models to improve the accuracy and usability of AI applications? Detail any challenges you anticipate and how you would address them.",
+    "Can you explain a project where you used AutoML on Google Cloud to automate and improve the development cycle of an AI model? What were the outcomes in terms of model performance and deployment efficiency?",
+    "Discuss an instance where you had to implement custom machine learning algorithms in TensorFlow or PyTorch for Google Cloud. What were the challenges, and how did the environment affect your implementation strategy?",
+    "What strategies would you use to ensure the ethical use of AI in large-scale applications, specifically in relation to data bias and algorithm transparency within Google Cloud AI services?",
+    "Explain how you would utilize Vertex AI for building and managing a robust AI solution. Include discussion on any enhancements you would propose based on your previous experience.",
+    "Detail a case where you led a cross-functional team to deploy an AI solution that significantly impacted business metrics. What were the key factors that contributed to your team's success?",
+    "How do you stay updated with the evolving AI trends and how do you apply this knowledge practically in projects? Could you provide an example of a recent innovation you incorporated into your work?",
+    "AI model robustness can be critical for deployment in real-world applications. Describe the process you would follow to perform robustness testing in a Google Cloud AI environment. What tools or methods would you use?",
+    "Considering AI's rapid development, how would you leverage Google Cloud's infrastructure to develop a scalable, real-time AI system? Please discuss a particular real-world scenario where this would be applicable."
+]

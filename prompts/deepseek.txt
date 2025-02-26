@@ -1,0 +1,14 @@
+```json
+[
+  "Can you describe a complex AI/ML model you designed and deployed in a production environment? What were the key challenges in scaling the model, and how did you ensure its reliability and performance?",
+  "How would you approach optimizing a generative AI model for low-latency inference in a cloud environment? Discuss the trade-offs between model accuracy, latency, and resource utilization.",
+  "Explain how you would implement a federated learning system for a distributed dataset across multiple edge devices. What security and privacy considerations would you prioritize?",
+  "Describe a scenario where you had to debug a machine learning model that was underperforming in production. What diagnostic tools and techniques did you use, and how did you resolve the issue?",
+  "How do you stay current with advancements in generative AI, such as diffusion models or transformer architectures? Can you provide an example of how you’ve applied these advancements in your work?",
+  "What is your experience with fine-tuning large language models (LLMs) for domain-specific tasks? How do you balance the trade-offs between fine-tuning and prompt engineering?",
+  "Can you walk us through your process for designing a machine learning pipeline that integrates with real-time data streams? How do you ensure data quality and model consistency?",
+  "How would you handle a situation where a deployed AI model starts exhibiting biased behavior? What steps would you take to identify, mitigate, and prevent such issues in the future?",
+  "Describe your experience with MLOps practices, particularly in automating model training, deployment, and monitoring. What tools and frameworks do you rely on most?",
+  "How do you collaborate with cross-functional teams, such as data engineers and product managers, to align AI/ML solutions with business goals? Can you provide an example of a successful collaboration?"
+]
+```

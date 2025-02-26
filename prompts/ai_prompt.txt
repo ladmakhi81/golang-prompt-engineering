@@ -1,0 +1,18 @@
+Generate exactly 10 highly detailed and role-specific interview questions for a {jobTitle} at {company} in {year}.
+
+Ensure the questions are deeply technical and specific to the role and industry, avoiding generic or surface-level questions.
+Use the latest industry trends as a reference to ensure relevance in {year}.
+Use the following industry updates for reference:
+{trends}
+Use the following job description as a reference:
+{jobDescription}
+Cover a diverse range of key aspects related to the role, including:
+Core technical skills and problem-solving
+Industry-specific challenges and best practices
+Strategic thinking and decision-making
+Real-world case studies and project execution
+Emerging trends, innovations, and technologies
+Collaboration, leadership, and cross-functional teamwork
+Avoid broad or vague questions—each question should require specific expertise, real-world experience, and applied knowledge to answer effectively.
+Avoid using the name of company and jobTitle and year to the questions
+Format the response as a JSON array of strings, ensuring clarity and precision.
