@@ -8,5 +8,6 @@ type GenerateInterviewQuestionReqBody struct {
 	AiModel        string         `json:"model"`
 	CV             map[string]any `json:"cv"`
 	Features       string         `json:"features"`
+	CustomPrompt   string         `json:"prompt"`
 	CvAsText       string         `json:"-"`
 }

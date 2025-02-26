@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"questions-generators/internal/config"
+	"strings"
 
 	"github.com/sashabaranov/go-openai"
 )
@@ -25,7 +26,7 @@ func (svc AvalaiService) GenerateInterviewQuestions(model, prompt string) []stri
 		Messages: []openai.ChatCompletionMessage{
 			{
 				Role:    "system",
-				Content: "You are an expert in interview preparation across all industries. return questions in JSON array format.",
+				Content: "You are an expert in interview preparation across all industries. return questions in JSON array format without any extra words and sentences.",
 			},
 			{
 				Role:    "user",
@@ -36,8 +37,11 @@ func (svc AvalaiService) GenerateInterviewQuestions(model, prompt string) []stri
 	if respErr != nil || len(resp.Choices) == 0 {
 		return []string{"Error: No response from AI."}
 	}
+	messageContent := resp.Choices[0].Message.Content
+	messageContent = strings.Replace(messageContent, "json", "", -1)
+	messageContent = strings.Replace(messageContent, "`", "", -1)
 	var questions []string
-	parseErr := json.Unmarshal([]byte(resp.Choices[0].Message.Content), &questions)
+	parseErr := json.Unmarshal([]byte(messageContent), &questions)
 	if parseErr != nil {
 		return []string{"Error: AI response is not in JSON array format."}
 	}

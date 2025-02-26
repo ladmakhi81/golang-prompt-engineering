@@ -34,7 +34,7 @@ func (svc AiService) GenerateInterviewQuestions(
 		"IncludeNews":      dto.IncludeNews,
 		"Year":             time.Now().Year(),
 	}
-	prompt, promptErr := utils.ParsePromptTemplate(promptName, promptToken)
+	prompt, promptErr := utils.ParsePromptTemplate(promptName, promptToken, dto.CustomPrompt)
 	if promptErr != nil {
 		return []string{"Error: Unable to parse prompt"}
 	}

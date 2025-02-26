@@ -72,6 +72,7 @@ func (svc *QuestionService) GetQuestions(dto dto.GenerateInterviewQuestionReqBod
 			includeCV,
 			includeWebSearch,
 			includeNews,
+			dto.CustomPrompt,
 		),
 	)
 

@@ -12,6 +12,7 @@ type GenerateInterviewQuestionDTO struct {
 	IncludeCv        bool
 	IncludeWebSearch bool
 	IncludeNews      bool
+	CustomPrompt     string
 }
 
 func NewGenerateInterviewQuestionDTO(
@@ -26,6 +27,7 @@ func NewGenerateInterviewQuestionDTO(
 	includeCv bool,
 	includeWebSearch bool,
 	includeNews bool,
+	customPrompt string,
 ) GenerateInterviewQuestionDTO {
 	return GenerateInterviewQuestionDTO{
 		JobTitle:         jobTitle,
@@ -39,5 +41,6 @@ func NewGenerateInterviewQuestionDTO(
 		IncludeCv:        includeCv,
 		IncludeWebSearch: includeWebSearch,
 		IncludeNews:      includeNews,
+		CustomPrompt:     customPrompt,
 	}
 }
