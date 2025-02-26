@@ -4,12 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"questions-generators/internal/dto"
-	"questions-generators/internal/providers/ai"
-	aiservice "questions-generators/internal/providers/ai/service"
-	"questions-generators/internal/providers/newssearch"
-	newssearchservice "questions-generators/internal/providers/newssearch/service"
-	"questions-generators/internal/providers/websearch"
-	websearchservice "questions-generators/internal/providers/websearch/service"
 	v1 "questions-generators/internal/services/question/v1"
 )
 
@@ -49,24 +43,4 @@ func (h QuestionHandler) GetInterviewQuestions(w http.ResponseWriter, r *http.Re
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(questions)
-}
-
-func getSvc() *v1.QuestionService {
-	websearchSvc := websearch.NewWebSearchService(
-		websearchservice.NewGoogleWebSearch(),
-	)
-
-	newsSearchSvc := newssearch.NewNewsSearchService(
-		newssearchservice.NewNewsApiSearch(),
-	)
-
-	aiSvc := ai.NewAiService(
-		aiservice.NewAvalaiService(),
-	)
-
-	return v1.NewQuestionService(
-		websearchSvc,
-		newsSearchSvc,
-		aiSvc,
-	)
 }
